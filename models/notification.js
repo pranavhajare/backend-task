@@ -1,14 +1,18 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../config/config");
+export default (sequelize, DataTypes) => {
+  const Notification = sequelize.define("Notification", {
+    message: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    isRead: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+    },
+  });
 
-const Notification = sequelize.define("Notification", {
-  user_id: {
-    type: DataTypes.INTEGER,
-    references: { model: "Users", key: "id" },
-  },
-  message: { type: DataTypes.STRING, allowNull: false },
-  is_read: { type: DataTypes.BOOLEAN, defaultValue: false },
-  created_at: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
-});
-
-module.exports = Notification;
+  return Notification;
+};
